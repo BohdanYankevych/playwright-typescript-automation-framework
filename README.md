@@ -52,6 +52,7 @@ playwright-typescript-automation-framework
 ---
 
 ## Test Scenarios
+
 ### API Tests
 
 - GET users list

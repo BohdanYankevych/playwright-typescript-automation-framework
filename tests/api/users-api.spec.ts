@@ -1,7 +1,9 @@
 import { test, expect } from '@playwright/test';
 
 test('@api GET users list', async ({ request }) => {
-  const response = await request.get('https://jsonplaceholder.typicode.com/users');
+  const response = await request.get(
+    'https://jsonplaceholder.typicode.com/users',
+  );
 
   expect(response.status()).toBe(200);
 
@@ -14,13 +16,16 @@ test('@api GET users list', async ({ request }) => {
 });
 
 test('@api POST create new post', async ({ request }) => {
-  const response = await request.post('https://jsonplaceholder.typicode.com/posts', {
-    data: {
-      title: 'QA Automation',
-      body: 'Playwright API test',
-      userId: 1,
+  const response = await request.post(
+    'https://jsonplaceholder.typicode.com/posts',
+    {
+      data: {
+        title: 'QA Automation',
+        body: 'Playwright API test',
+        userId: 1,
+      },
     },
-  });
+  );
 
   expect(response.status()).toBe(201);
 
@@ -42,7 +47,7 @@ test('@api PUT update post', async ({ request }) => {
         body: 'Updated body content',
         userId: 1,
       },
-    }
+    },
   );
 
   expect(response.status()).toBe(200);
@@ -56,7 +61,7 @@ test('@api PUT update post', async ({ request }) => {
 
 test('@api DELETE post', async ({ request }) => {
   const response = await request.delete(
-    'https://jsonplaceholder.typicode.com/posts/1'
+    'https://jsonplaceholder.typicode.com/posts/1',
   );
 
   expect(response.status()).toBe(200);

@@ -6,10 +6,7 @@ test('@regression should show error for invalid password', async ({
 }) => {
   await loginPage.openLoginPage();
 
-  await loginPage.login(
-    process.env.USERNAME!,
-    'wrong_password',
-  );
+  await loginPage.login(process.env.USERNAME!, 'wrong_password');
 
   await expect(page.locator('[data-test="error"]')).toBeVisible();
 
