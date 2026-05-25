@@ -1,6 +1,6 @@
 import { test, expect } from '../fixtures/test-fixtures';
 
-test('should show error for invalid password', async ({
+test('@regression should show error for invalid password', async ({
   page,
   loginPage,
 }) => {

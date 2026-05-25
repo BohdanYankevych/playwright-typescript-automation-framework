@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('GET users list', async ({ request }) => {
+test('@api GET users list', async ({ request }) => {
   const response = await request.get('https://jsonplaceholder.typicode.com/users');
 
   expect(response.status()).toBe(200);
@@ -13,7 +13,7 @@ test('GET users list', async ({ request }) => {
   expect(responseBody[0]).toHaveProperty('name');
 });
 
-test('POST create new post', async ({ request }) => {
+test('@api POST create new post', async ({ request }) => {
   const response = await request.post('https://jsonplaceholder.typicode.com/posts', {
     data: {
       title: 'QA Automation',
@@ -32,7 +32,7 @@ test('POST create new post', async ({ request }) => {
   expect(responseBody.userId).toBe(1);
 });
 
-test('PUT update post', async ({ request }) => {
+test('@api PUT update post', async ({ request }) => {
   const response = await request.put(
     'https://jsonplaceholder.typicode.com/posts/1',
     {
@@ -54,7 +54,7 @@ test('PUT update post', async ({ request }) => {
   expect(responseBody.body).toBe('Updated body content');
 });
 
-test('DELETE post', async ({ request }) => {
+test('@api DELETE post', async ({ request }) => {
   const response = await request.delete(
     'https://jsonplaceholder.typicode.com/posts/1'
   );

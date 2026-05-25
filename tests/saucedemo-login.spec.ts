@@ -1,6 +1,6 @@
 import { test, expect } from '../fixtures/test-fixtures';
 
-test('successful login to SauceDemo', async ({ page, loginPage }) => {
+test('@smoke successful login to SauceDemo', async ({ page, loginPage }) => {
   await loginPage.openLoginPage();
 
   await loginPage.login(
