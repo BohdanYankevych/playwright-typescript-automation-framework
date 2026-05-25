@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+  "test": "playwright test",
+  "lint": "eslint . --ext .ts",
+  "format": "prettier --write ."
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -12,7 +16,13 @@
     "@faker-js/faker": "^10.4.0",
     "@playwright/test": "^1.60.0",
     "@types/node": "^25.9.1",
-    "allure-playwright": "^3.9.0"
+    "@typescript-eslint/eslint-plugin": "^8.59.4",
+    "@typescript-eslint/parser": "^8.59.4",
+    "allure-playwright": "^3.9.0",
+    "eslint": "^10.4.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-playwright": "^2.10.4",
+    "prettier": "^3.8.3"
   },
   "dependencies": {
     "dotenv": "^17.4.2"

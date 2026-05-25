@@ -12,6 +12,7 @@ test('GET users list', async ({ request }) => {
   expect(responseBody[0]).toHaveProperty('email');
   expect(responseBody[0]).toHaveProperty('name');
 });
+
 test('POST create new post', async ({ request }) => {
   const response = await request.post('https://jsonplaceholder.typicode.com/posts', {
     data: {
@@ -30,6 +31,7 @@ test('POST create new post', async ({ request }) => {
   expect(responseBody.body).toBe('Playwright API test');
   expect(responseBody.userId).toBe(1);
 });
+
 test('PUT update post', async ({ request }) => {
   const response = await request.put(
     'https://jsonplaceholder.typicode.com/posts/1',
@@ -51,6 +53,7 @@ test('PUT update post', async ({ request }) => {
   expect(responseBody.title).toBe('Updated Title');
   expect(responseBody.body).toBe('Updated body content');
 });
+
 test('DELETE post', async ({ request }) => {
   const response = await request.delete(
     'https://jsonplaceholder.typicode.com/posts/1'
