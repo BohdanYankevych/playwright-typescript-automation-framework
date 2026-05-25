@@ -19,6 +19,10 @@ UI test automation framework built with Playwright and TypeScript.
 - Page Object Model (POM)
 - HTML reports
 - Scalable framework structure
+- API GET test
+- API POST test
+- API PUT test
+- API DELETE test
 
 ---
 
@@ -31,6 +35,9 @@ playwright-typescript-automation-framework
 │   └── LoginPage.ts
 │
 ├── tests
+│   ├── api
+│   │   └── users-api.spec.ts
+│   │
 │   ├── saucedemo-login.spec.ts
 │   └── negative-login.spec.ts
 │
@@ -45,6 +52,12 @@ playwright-typescript-automation-framework
 ---
 
 ## Test Scenarios
+### API Tests
+
+- GET users list
+- POST create new post
+- PUT update post
+- DELETE post
 
 ### Positive Login Test
 
