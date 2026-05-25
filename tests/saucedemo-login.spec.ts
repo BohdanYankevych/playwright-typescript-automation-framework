@@ -1,17 +1,12 @@
-import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
+import { test, expect } from '../fixtures/test-fixtures';
 
-test('successful login to SauceDemo', async ({ page }) => {
-
-  const loginPage = new LoginPage(page);
-
+test('successful login to SauceDemo', async ({ page, loginPage }) => {
   await loginPage.openLoginPage();
 
   await loginPage.login(
-  process.env.USERNAME!,
-  process.env.PASSWORD!
-);
+    process.env.USERNAME!,
+    process.env.PASSWORD!,
+  );
 
   await expect(page).toHaveURL(/inventory/);
-
 });
