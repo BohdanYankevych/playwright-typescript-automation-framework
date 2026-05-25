@@ -7,7 +7,10 @@ test('successful login to SauceDemo', async ({ page }) => {
 
   await loginPage.openLoginPage();
 
-  await loginPage.login('standard_user', 'secret_sauce');
+  await loginPage.login(
+  process.env.USERNAME!,
+  process.env.PASSWORD!
+);
 
   await expect(page).toHaveURL(/inventory/);
 

@@ -7,7 +7,10 @@ test('should show error for invalid password', async ({ page }) => {
 
   await loginPage.openLoginPage();
 
-  await loginPage.login('standard_user', 'wrong_password');
+  await loginPage.login(
+  process.env.USERNAME!,
+  'wrong_password'
+);
 
   await expect(page.locator('[data-test="error"]')).toBeVisible();
 
