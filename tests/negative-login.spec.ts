@@ -10,7 +10,10 @@ test('@regression should show error for invalid password', async ({
 
   await expect(page.locator('[data-test="error"]')).toBeVisible();
 
+  //await expect(page.locator('[data-test="error"]')).toContainText(
+  //  'Username and password do not match',
+
   await expect(page.locator('[data-test="error"]')).toContainText(
-    'Username and password do not match',
+  'Username and password do not match'
   );
 });
