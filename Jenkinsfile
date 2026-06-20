@@ -11,6 +11,9 @@ pipeline {
 
     environment {
         PATH = "/Users/bohdanyankevych/.nvm/versions/node/v25.2.1/bin:${env.PATH}"
+        BASE_URL = "https://www.saucedemo.com/"
+        USERNAME = "standard_user"
+        PASSWORD = "secret_sauce"
     }
 
     stages {
