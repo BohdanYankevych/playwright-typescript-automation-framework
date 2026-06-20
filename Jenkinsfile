@@ -1,6 +1,14 @@
 pipeline {
     agent any
 
+    parameters {
+        choice(
+            name: 'TEST_SUITE',
+            choices: ['api', 'smoke', 'regression', 'all'],
+            description: 'Choose which test suite to run'
+        )
+    }
+
     environment {
         PATH = "/Users/bohdanyankevych/.nvm/versions/node/v25.2.1/bin:${env.PATH}"
     }
@@ -25,9 +33,15 @@ pipeline {
             }
         }
 
-        stage('Run API Tests') {
+        stage('Run Tests') {
             steps {
-                sh 'npx playwright test --grep @api'
+                script {
+                    if (params.TEST_SUITE == 'all') {
+                        sh 'npx playwright test'
+                    } else {
+                        sh "npx playwright test --grep @${params.TEST_SUITE}"
+                    }
+                }
             }
         }
     }
