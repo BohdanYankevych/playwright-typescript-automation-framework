@@ -53,6 +53,14 @@ pipeline {
         always {
             archiveArtifacts artifacts: 'playwright-report/**/*', allowEmptyArchive: true
             archiveArtifacts artifacts: 'allure-results/**/*', allowEmptyArchive: true
+            sh '''
+            mkdir -p allure-results
+            echo "Environment=QA" > allure-results/environment.properties
+            echo "Framework=Playwright" >> allure-results/environment.properties
+            echo "Language=TypeScript" >> allure-results/environment.properties
+            echo "CI=Jenkins" >> allure-results/environment.properties
+            echo "BaseURL=$BASE_URL" >> allure-results/environment.properties
+            '''
 
             allure([
                 includeProperties: false,
