@@ -24,6 +24,6 @@ test('@smoke successful login to SauceDemo', async ({
   });
 
   await allure.step('Verify user is redirected to inventory page', async () => {
-    await expect(page).toHaveURL(/wrong-page/);
+    await expect(page).toHaveURL(/inventory/);
   });
 });
