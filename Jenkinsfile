@@ -24,6 +24,12 @@ pipeline {
             }
         }
 
+        stage('Clean Previous Results') {
+            steps {
+                sh 'rm -rf allure-results allure-report playwright-report test-results'
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 sh 'npm ci'
@@ -53,6 +59,7 @@ pipeline {
         always {
             archiveArtifacts artifacts: 'playwright-report/**/*', allowEmptyArchive: true
             archiveArtifacts artifacts: 'allure-results/**/*', allowEmptyArchive: true
+
             sh '''
             mkdir -p allure-results
             echo "Environment=QA" > allure-results/environment.properties
