@@ -1,0 +1,10 @@
+services:
+  playwright:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: playwright-tests
+    environment:
+      BASE_URL: https://www.saucedemo.com/
+      USERNAME: standard_user
+      PASSWORD: secret_sauce
