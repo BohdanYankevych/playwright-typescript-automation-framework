@@ -1,17 +1,18 @@
 import { Page } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class LoginPage {
-  constructor(private page: Page) {}
-
-  async openLoginPage() {
-    await this.page.goto('/');
+export class LoginPage extends BasePage {
+  constructor(page: Page) {
+    super(page);
   }
 
-  async login(username: string, password: string) {
-    await this.page.locator('[data-test="username"]').fill(username);
+  async openLoginPage(): Promise<void> {
+    await this.goto('/');
+  }
 
-    await this.page.locator('[data-test="password"]').fill(password);
-
-    await this.page.locator('[data-test="login-button"]').click();
+  async login(username: string, password: string): Promise<void> {
+    await this.fill('[data-test="username"]', username);
+    await this.fill('[data-test="password"]', password);
+    await this.click('[data-test="login-button"]');
   }
 }
