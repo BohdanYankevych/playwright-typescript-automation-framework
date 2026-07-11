@@ -1,30 +1,33 @@
 import { APIRequestContext } from '@playwright/test';
+import { BaseApiClient } from './BaseApiClient';
 
-export class UsersApiClient {
-  constructor(private request: APIRequestContext) {}
+export class UsersApiClient extends BaseApiClient {
+  constructor(request: APIRequestContext) {
+    super(request);
+  }
 
   async getUsers() {
-    return await this.request.get(
+    return this.get(
       'https://jsonplaceholder.typicode.com/users',
     );
   }
 
   async createPost(data: object) {
-    return await this.request.post(
+    return this.post(
       'https://jsonplaceholder.typicode.com/posts',
-      { data },
+      data,
     );
   }
 
   async updatePost(id: number, data: object) {
-    return await this.request.put(
+    return this.put(
       `https://jsonplaceholder.typicode.com/posts/${id}`,
-      { data },
+      data,
     );
   }
 
   async deletePost(id: number) {
-    return await this.request.delete(
+    return this.delete(
       `https://jsonplaceholder.typicode.com/posts/${id}`,
     );
   }
