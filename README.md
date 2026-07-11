@@ -2,6 +2,8 @@
 
 A modern UI and API test automation framework built with **Playwright**, **TypeScript**, **Jenkins**, and **Allure Report**.
 
+---
+
 ## Features
 
 - UI automation with Playwright
@@ -37,6 +39,8 @@ A modern UI and API test automation framework built with **Playwright**, **TypeS
 ```text
 .
 ├── api/
+├── docs/
+│   └── images/
 ├── fixtures/
 ├── pages/
 ├── test-data/
@@ -47,6 +51,8 @@ A modern UI and API test automation framework built with **Playwright**, **TypeS
 │   └── data-driven-login.spec.ts
 ├── playwright.config.ts
 ├── Jenkinsfile
+├── Dockerfile
+├── docker-compose.yml
 ├── package.json
 └── README.md
 ```
@@ -127,6 +133,28 @@ npx playwright test --headed
 
 ---
 
+## Docker
+
+Build Docker image
+
+```bash
+docker build -t playwright-framework .
+```
+
+Run API tests inside Docker
+
+```bash
+docker run --rm playwright-framework
+```
+
+Run using Docker Compose
+
+```bash
+docker compose up --build
+```
+
+---
+
 ## Reports
 
 Generate Allure report
@@ -135,17 +163,33 @@ Generate Allure report
 allure generate allure-results --clean
 ```
 
-Open report
+Open Allure report
 
 ```bash
 allure open allure-report
 ```
 
-Playwright HTML report
+Open Playwright HTML report
 
 ```bash
 npx playwright show-report
 ```
+
+---
+
+# Test Reports
+
+## Jenkins Build
+
+![Jenkins Build](docs/images/jenkins-success.png)
+
+## Allure Overview
+
+![Allure Overview](docs/images/allure-overview.png)
+
+## Allure Test Details
+
+![Allure Test Details](docs/images/allure-test-details.png)
 
 ---
 
@@ -177,13 +221,14 @@ using Jenkins parameters.
 
 The framework generates rich Allure reports with:
 
-- Environment information
-- Test Owner
-- Severity
 - Epic
 - Feature
 - Story
+- Owner
+- Severity
+- Description
 - Test Steps
+- Environment information
 - Screenshots
 - Videos
 - Traces
@@ -216,7 +261,7 @@ Developer
      ▼
  GitHub
      │
- Webhook
+ GitHub Webhook
      │
      ▼
  ngrok

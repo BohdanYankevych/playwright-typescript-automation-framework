@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import * as allure from 'allure-js-commons';
+import { ContentType } from 'allure-js-commons';
 
 test('@api GET users list', async ({ request }) => {
   await allure.epic('API');
@@ -48,6 +49,12 @@ test('@api POST create new post', async ({ request }) => {
     userId: 1,
   };
 
+  await allure.attachment(
+    'Request Body',
+    JSON.stringify(requestBody, null, 2),
+    ContentType.JSON,
+  );
+
   const response = await request.post(
     'https://jsonplaceholder.typicode.com/posts',
     {
@@ -60,6 +67,12 @@ test('@api POST create new post', async ({ request }) => {
   });
 
   const responseBody = await response.json();
+
+  await allure.attachment(
+    'Response Body',
+    JSON.stringify(responseBody, null, 2),
+    ContentType.JSON,
+  );
 
   await allure.step('Verify created post response data', async () => {
     expect(responseBody).toHaveProperty('id');
