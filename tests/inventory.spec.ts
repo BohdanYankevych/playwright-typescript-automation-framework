@@ -1,5 +1,6 @@
 import { expect } from '@playwright/test';
 import * as allure from 'allure-js-commons';
+import { Environment } from '../config/Environment';
 import { test } from '../fixtures/test-fixtures';
 
 test('@smoke add backpack to cart', async ({
@@ -19,8 +20,8 @@ test('@smoke add backpack to cart', async ({
 
   await allure.step('Login with valid credentials', async () => {
     await loginPage.login(
-      process.env.USERNAME!,
-      process.env.PASSWORD!,
+      Environment.username,
+      Environment.password,
     );
   });
 

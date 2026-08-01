@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class CheckoutCompletePage extends BasePage {
@@ -15,12 +15,20 @@ export class CheckoutCompletePage extends BasePage {
     super(page);
   }
 
+  getCompleteHeaderLocator(): Locator {
+    return this.locator(this.completeHeader);
+  }
+
+  getCompleteMessageLocator(): Locator {
+    return this.locator(this.completeMessage);
+  }
+
   async getCompleteHeader(): Promise<string> {
-    return await this.locator(this.completeHeader).innerText();
+    return await this.getCompleteHeaderLocator().innerText();
   }
 
   async getCompleteMessage(): Promise<string> {
-    return await this.locator(this.completeMessage).innerText();
+    return await this.getCompleteMessageLocator().innerText();
   }
 
   async backHome(): Promise<void> {

@@ -5,6 +5,7 @@ import { CartPage } from '../pages/CartPage';
 import { CheckoutInformationPage } from '../pages/CheckoutInformationPage';
 import { CheckoutOverviewPage } from '../pages/CheckoutOverviewPage';
 import { CheckoutCompletePage } from '../pages/CheckoutCompletePage';
+import { BurgerMenuComponent } from '../components/BurgerMenuComponent';
 
 type MyFixtures = {
   loginPage: LoginPage;
@@ -13,6 +14,7 @@ type MyFixtures = {
   checkoutInformationPage: CheckoutInformationPage;
   checkoutOverviewPage: CheckoutOverviewPage;
   checkoutCompletePage: CheckoutCompletePage;
+  burgerMenu: BurgerMenuComponent;
 };
 
 export const test = base.extend<MyFixtures>({
@@ -38,6 +40,10 @@ export const test = base.extend<MyFixtures>({
 
   checkoutCompletePage: async ({ page }, use) => {
     await use(new CheckoutCompletePage(page));
+  },
+
+  burgerMenu: async ({ page }, use) => {
+    await use(new BurgerMenuComponent(page));
   },
 });
 

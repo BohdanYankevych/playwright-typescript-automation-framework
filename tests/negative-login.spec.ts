@@ -1,4 +1,5 @@
-import { test, expect } from '../fixtures/test-fixtures';
+import { expect, test } from '../fixtures/test-fixtures';
+import { Environment } from '../config/Environment';
 
 test('@regression should show error for invalid password', async ({
   page,
@@ -6,14 +7,18 @@ test('@regression should show error for invalid password', async ({
 }) => {
   await loginPage.openLoginPage();
 
-  await loginPage.login(process.env.USERNAME!, 'wrong_password');
+  await loginPage.login(
+    Environment.username,
+    'wrong_password',
+  );
 
-  await expect(page.locator('[data-test="error"]')).toBeVisible();
+  await expect(
+    page.locator('[data-test="error"]'),
+  ).toBeVisible();
 
-  //await expect(page.locator('[data-test="error"]')).toContainText(
-  //  'Username and password do not match',
-
-  await expect(page.locator('[data-test="error"]')).toContainText(
-  'Username and password do not match'
+  await expect(
+    page.locator('[data-test="error"]'),
+  ).toContainText(
+    'Username and password do not match',
   );
 });

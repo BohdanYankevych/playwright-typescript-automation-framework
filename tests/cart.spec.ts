@@ -1,5 +1,6 @@
 import { expect } from '@playwright/test';
 import * as allure from 'allure-js-commons';
+import { Environment } from '../config/Environment';
 import { test } from '../fixtures/test-fixtures';
 
 test('@regression add product and verify it in cart', async ({
@@ -20,8 +21,8 @@ test('@regression add product and verify it in cart', async ({
 
   await allure.step('Login with valid credentials', async () => {
     await loginPage.login(
-      process.env.USERNAME!,
-      process.env.PASSWORD!,
+      Environment.username,
+      Environment.password,
     );
   });
 
@@ -39,7 +40,7 @@ test('@regression add product and verify it in cart', async ({
 
   await allure.step('Verify backpack is displayed in cart', async () => {
     await expect(
-      page.locator('[data-test="inventory-item-name"]'),
+      cartPage.getProductNameLocator(),
     ).toHaveText('Sauce Labs Backpack');
   });
 });

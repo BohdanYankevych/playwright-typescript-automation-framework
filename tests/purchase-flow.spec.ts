@@ -1,5 +1,6 @@
 import { expect } from '@playwright/test';
 import * as allure from 'allure-js-commons';
+import { Environment } from '../config/Environment';
 import { test } from '../fixtures/test-fixtures';
 
 test('@regression complete purchase flow', async ({
@@ -10,6 +11,7 @@ test('@regression complete purchase flow', async ({
   checkoutInformationPage,
   checkoutOverviewPage,
   checkoutCompletePage,
+  burgerMenu,
 }) => {
   await allure.owner('Bohdan Yankevych');
   await allure.severity('blocker');
@@ -23,8 +25,8 @@ test('@regression complete purchase flow', async ({
 
   await allure.step('Login with valid credentials', async () => {
     await loginPage.login(
-      process.env.USERNAME!,
-      process.env.PASSWORD!,
+      Environment.username,
+      Environment.password,
     );
   });
 
@@ -42,7 +44,7 @@ test('@regression complete purchase flow', async ({
 
   await allure.step('Verify product is displayed in cart', async () => {
     await expect(
-      page.locator('[data-test="inventory-item-name"]'),
+      cartPage.getProductNameLocator(),
     ).toHaveText('Sauce Labs Backpack');
   });
 
@@ -68,13 +70,13 @@ test('@regression complete purchase flow', async ({
 
   await allure.step('Verify product on checkout overview', async () => {
     await expect(
-      page.locator('[data-test="inventory-item-name"]'),
+      checkoutOverviewPage.getProductNameLocator(),
     ).toHaveText('Sauce Labs Backpack');
   });
 
   await allure.step('Verify total price is displayed', async () => {
     await expect(
-      page.locator('[data-test="total-label"]'),
+      checkoutOverviewPage.getTotalPriceLocator(),
     ).toContainText('Total: $');
   });
 
@@ -86,7 +88,7 @@ test('@regression complete purchase flow', async ({
     await expect(page).toHaveURL(/checkout-complete/);
 
     await expect(
-      page.locator('[data-test="complete-header"]'),
+      checkoutCompletePage.getCompleteHeaderLocator(),
     ).toHaveText('Thank you for your order!');
   });
 
@@ -94,10 +96,11 @@ test('@regression complete purchase flow', async ({
     await checkoutCompletePage.backHome();
     await expect(page).toHaveURL(/inventory/);
   });
+
   await allure.step('Logout from SauceDemo', async () => {
-    await inventoryPage.openBurgerMenu();
-    await inventoryPage.logout();
+    await burgerMenu.open();
+    await burgerMenu.logout();
 
     await expect(page).toHaveURL('/');
-});
+  });
 });

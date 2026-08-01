@@ -10,9 +10,13 @@
     "types": ["node", "@playwright/test"]
   },
   "include": [
-    "tests",
-    "pages",
+    "api",
+    "components",
+    "config",
     "fixtures",
+    "pages",
+    "tests",
+    "utils",
     "playwright.config.ts"
   ]
 }
