@@ -11,14 +11,14 @@ export class BasePage {
     await this.page.goto(url);
   }
 
-  protected async click(selector: string): Promise<void> {
-    await this.locator(selector).click();
+  protected async click(locator: Locator): Promise<void> {
+    await locator.click();
   }
 
   protected async fill(
-    selector: string,
+    locator: Locator,
     value: string,
   ): Promise<void> {
-    await this.locator(selector).fill(value);
+    await locator.fill(value);
   }
 }

@@ -1,5 +1,6 @@
 import { expect } from '@playwright/test';
 import * as allure from 'allure-js-commons';
+import { Products } from '../constants/Products';
 import { Environment } from '../config/Environment';
 import { test } from '../fixtures/test-fixtures';
 
@@ -41,6 +42,6 @@ test('@regression add product and verify it in cart', async ({
   await allure.step('Verify backpack is displayed in cart', async () => {
     await expect(
       cartPage.getProductNameLocator(),
-    ).toHaveText('Sauce Labs Backpack');
+    ).toHaveText(Products.backpack);
   });
 });

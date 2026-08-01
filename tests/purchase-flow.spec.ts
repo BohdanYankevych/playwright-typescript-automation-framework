@@ -2,6 +2,8 @@ import { expect } from '@playwright/test';
 import * as allure from 'allure-js-commons';
 import { Environment } from '../config/Environment';
 import { test } from '../fixtures/test-fixtures';
+import { Products } from '../constants/Products';
+import { CustomerFactory } from '../factories/CustomerFactory';
 
 test('@regression complete purchase flow', async ({
   page,
@@ -45,7 +47,7 @@ test('@regression complete purchase flow', async ({
   await allure.step('Verify product is displayed in cart', async () => {
     await expect(
       cartPage.getProductNameLocator(),
-    ).toHaveText('Sauce Labs Backpack');
+    ).toHaveText(Products.backpack);
   });
 
   await allure.step('Proceed to checkout', async () => {
@@ -54,10 +56,8 @@ test('@regression complete purchase flow', async ({
 
   await allure.step('Fill customer information', async () => {
     await checkoutInformationPage.fillCustomerInformation(
-      'John',
-      'Doe',
-      '10001',
-    );
+  CustomerFactory.default(),
+);
   });
 
   await allure.step('Continue to checkout overview', async () => {
@@ -71,7 +71,7 @@ test('@regression complete purchase flow', async ({
   await allure.step('Verify product on checkout overview', async () => {
     await expect(
       checkoutOverviewPage.getProductNameLocator(),
-    ).toHaveText('Sauce Labs Backpack');
+    ).toHaveText(Products.backpack);
   });
 
   await allure.step('Verify total price is displayed', async () => {

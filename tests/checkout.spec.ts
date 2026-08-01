@@ -1,5 +1,6 @@
 import { expect } from '@playwright/test';
 import * as allure from 'allure-js-commons';
+import { CustomerFactory } from '../factories/CustomerFactory';
 import { Environment } from '../config/Environment';
 import { test } from '../fixtures/test-fixtures';
 
@@ -41,10 +42,8 @@ test('@regression complete checkout information', async ({
 
   await allure.step('Fill customer information', async () => {
     await checkoutInformationPage.fillCustomerInformation(
-      'John',
-      'Doe',
-      '10001',
-    );
+  CustomerFactory.default(),
+);
   });
 
   await allure.step('Continue checkout', async () => {
