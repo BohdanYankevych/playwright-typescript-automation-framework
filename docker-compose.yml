@@ -4,7 +4,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: playwright-tests
-    environment:
-      BASE_URL: https://www.saucedemo.com/
-      USERNAME: standard_user
-      PASSWORD: secret_sauce
+    env_file:
+      - .env
+    volumes:
+      - ./playwright-report:/app/playwright-report
+      - ./allure-results:/app/allure-results

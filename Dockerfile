@@ -8,6 +8,4 @@ RUN npm ci
 
 COPY . .
 
-RUN npx playwright install
-
-CMD ["npx", "playwright", "test", "--grep", "@api"]
+CMD ["npx", "playwright", "test"]
