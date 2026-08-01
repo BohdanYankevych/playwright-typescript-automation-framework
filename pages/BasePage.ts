@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 
 export class BasePage {
-  constructor(protected page: Page) {}
+  constructor(protected readonly page: Page) {}
 
   protected locator(selector: string): Locator {
     return this.page.locator(selector);
