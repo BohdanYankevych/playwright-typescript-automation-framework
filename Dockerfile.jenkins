@@ -1,0 +1,20 @@
+FROM jenkins/jenkins:lts-jdk21
+
+USER root
+
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    wget \
+    unzip \
+    libatomic1 \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && apt-get install -y nodejs
+
+RUN npm install -g allure-commandline
+
+RUN npx playwright install-deps
+
+USER jenkins
