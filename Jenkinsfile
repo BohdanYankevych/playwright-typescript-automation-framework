@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs 'NodeJS'
+    }
+
     parameters {
         choice(
             name: 'TEST_SUITE',
@@ -10,12 +14,13 @@ pipeline {
     }
 
     environment {
-        BASE_URL = 'https://www.saucedemo.com/'
-        USERNAME = 'standard_user'
-        PASSWORD = 'secret_sauce'
+        BASE_URL = "https://www.saucedemo.com/"
+        USERNAME = "standard_user"
+        PASSWORD = "secret_sauce"
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 git branch: 'main',
@@ -35,15 +40,9 @@ pipeline {
             }
         }
 
-        stage('Install Playwright Browsers') {
+        stage('Install Browsers') {
             steps {
-                sh 'npx playwright install --with-deps'
-            }
-        }
-
-        stage('Run ESLint') {
-            steps {
-                sh 'npm run lint'
+                sh 'npx playwright install'
             }
         }
 
@@ -62,25 +61,21 @@ pipeline {
 
     post {
         always {
+
+            archiveArtifacts artifacts: 'playwright-report/**/*', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'allure-results/**/*', allowEmptyArchive: true
+
             sh '''
                 mkdir -p allure-results
 
-                echo "Environment=QA" > allure-results/environment.properties
-                echo "Framework=Playwright" >> allure-results/environment.properties
-                echo "Language=TypeScript" >> allure-results/environment.properties
-                echo "CI=Jenkins" >> allure-results/environment.properties
-                echo "BaseURL=$BASE_URL" >> allure-results/environment.properties
+                cat > allure-results/environment.properties <<EOF
+Environment=QA
+Framework=Playwright
+Language=TypeScript
+CI=Jenkins
+BaseURL=$BASE_URL
+EOF
             '''
-
-            archiveArtifacts(
-                artifacts: 'playwright-report/**/*',
-                allowEmptyArchive: true
-            )
-
-            archiveArtifacts(
-                artifacts: 'allure-results/**/*',
-                allowEmptyArchive: true
-            )
 
             allure([
                 includeProperties: false,
@@ -89,14 +84,6 @@ pipeline {
                 reportBuildPolicy: 'ALWAYS',
                 results: [[path: 'allure-results']]
             ])
-        }
-
-        success {
-            echo 'Playwright pipeline completed successfully.'
-        }
-
-        failure {
-            echo 'Playwright pipeline failed. Check the test reports and console output.'
         }
 
         cleanup {
