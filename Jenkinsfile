@@ -7,6 +7,12 @@ pipeline {
             choices: ['api', 'smoke', 'regression', 'all'],
             description: 'Choose which test suite to run'
         )
+
+        choice(
+            name: 'BROWSER',
+            choices: ['all', 'chromium', 'firefox'],
+            description: 'Choose which browser to run'
+        )
     }
 
     environment {
@@ -45,11 +51,18 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    if (params.TEST_SUITE == 'all') {
-                        sh 'npx playwright test'
-                    } else {
-                        sh "npx playwright test --grep @${params.TEST_SUITE}"
+
+                    def command = "npx playwright test"
+
+                    if (params.TEST_SUITE != 'all') {
+                        command += " --grep @${params.TEST_SUITE}"
                     }
+
+                    if (params.BROWSER != 'all') {
+                        command += " --project=${params.BROWSER}"
+                    }
+
+                    sh command
                 }
             }
         }
@@ -70,6 +83,8 @@ Framework=Playwright
 Language=TypeScript
 CI=Jenkins
 BaseURL=$BASE_URL
+Browser=$BROWSER
+TestSuite=$TEST_SUITE
 EOF
             '''
 
